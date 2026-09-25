@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<section id="loginPage" class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="brand-icon">
+            <i class="bi bi-wallet2"></i>
+        </div>
+
+        <h1>Expense AI</h1>
+
+        <p class="auth-subtitle">
+            Smart Expense & Personal Finance Manager
+        </p>
+
+        <div id="loginMessage"></div>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <label for="loginUsername">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                >
+
+                <small
+                    id="loginUsernameError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('loginPassword', this)"
+                    >
+                        <i class="bi bi-eye"></i>
+                    </button>
+
+                </div>
+
+                <small
+                    id="loginPasswordError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <label class="remember-row">
+
+                <input
+                    type="checkbox"
+                    id="rememberMe"
+                >
+
+                Remember me
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn"
+            >
+                <i class="bi bi-box-arrow-in-right"></i>
+                Sign In
+            </button>
+
+        </form>
+
+
+        <div class="demo-login">
+
+            <strong>Demo account</strong>
+
+            <span>
+                Username: demo
+            </span>
+
+            <span>
+                Password: demo123
+            </span>
+
+        </div>
+
+
+        <div class="auth-switch">
+
+            Don't have an account?
+
+            <button
+                type="button"
+                class="link-btn"
+                onclick="showRegister()"
+            >
+                Create Account
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER PAGE
+===================================================== -->
+
+<section
+    id="registerPage"
+    class="auth-page hidden"
+>
+
+    <div class="auth-card register-card">
+
+        <div class="brand-icon">
+            <i class="bi bi-person-plus"></i>
+        </div>
+
+        <h1>Create Account</h1>
+
+        <p class="auth-subtitle">
+            Create your Expense AI account
+        </p>
+
+        <div id="registerMessage"></div>
+
+
+        <form id="registerForm">
+
+            <div class="input-group">
+
+                <label for="registerUsername">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="registerUsername"
+                    placeholder="Choose a username"
+                >
+
+                <small
+                    id="registerUsernameError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="two-column">
+
+                <div class="input-group">
+
+                    <label for="firstName">
+                        First Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        placeholder="First name"
+                    >
+
+                    <small
+                        id="firstNameError"
+                        class="field-error"
+                    ></small>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="lastName">
+                        Last Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        placeholder="Last name"
+                    >
+
+                    <small
+                        id="lastNameError"
+                        class="field-error"
+                    ></small>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="registerEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="example@gmail.com"
+                >
+
+                <small
+                    id="registerEmailError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="registerPassword">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Create password"
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('registerPassword', this)"
+                    >
+                        <i class="bi bi-eye"></i>
+                    </button>
+
+                </div>
+
+                <small
+                    id="registerPasswordError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm password"
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('confirmPassword', this)"
+                    >
+                        <i class="bi bi-eye"></i>
+                    </button>
+
+                </div>
+
+                <small
+                    id="confirmPasswordError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn"
+            >
+                <i class="bi bi-person-check"></i>
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+
+            Already have an account?
+
+            <button
+                type="button"
+                class="link-btn"
+                onclick="showLogin()"
+            >
+                Sign In
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
+
+<div
+    id="app"
+    class="app hidden"
+>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-small">
+                <i class="bi bi-wallet2"></i>
+            </div>
+
+            <div>
+
+                <strong>Expense AI</strong>
+
+                <small>
+                    Finance Manager
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button
+                class="nav-item active"
+                data-page="dashboard"
+                onclick="navigate('dashboard')"
+            >
+                <i class="bi bi-grid"></i>
+                Dashboard
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="transactions"
+                onclick="navigate('transactions')"
+            >
+                <i class="bi bi-arrow-left-right"></i>
+                Transactions
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="budget"
+                onclick="navigate('budget')"
+            >
+                <i class="bi bi-pie-chart"></i>
+                Budget
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="savings"
+                onclick="navigate('savings')"
+            >
+                <i class="bi bi-piggy-bank"></i>
+                Savings
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="reports"
+                onclick="navigate('reports')"
+            >
+                <i class="bi bi-bar-chart"></i>
+                Reports
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="settings"
+                onclick="navigate('settings')"
+            >
+                <i class="bi bi-gear"></i>
+                Settings
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="nav-item"
+                onclick="toggleTheme()"
+            >
+                <i class="bi bi-moon"></i>
+                Dark Mode
+            </button>
+
+
+            <button
+                class="nav-item logout-btn"
+                onclick="logout()"
+            >
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h2 id="pageTitle">
+                    Dashboard
+                </h2>
+
+                <p id="pageSubtitle">
+                    Welcome back!
+                </p>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <button
+                    class="icon-btn"
+                    onclick="toggleTheme()"
+                >
+                    <i class="bi bi-moon"></i>
+                </button>
+
+
+                <div
+                    class="user-avatar"
+                    id="userAvatar"
+                >
+                    U
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <section
+            id="dashboardPage"
+            class="page active-page"
+        >
+
+            <div class="welcome-card">
+
+                <div>
+
+                    <span class="welcome-label">
+                        Welcome back
+                    </span>
+
+                    <h1 id="welcomeName">
+                        User
+                    </h1>
+
+                    <p>
+                        Here's your financial overview.
+                    </p>
+
+                </div>
+
+
+                <div class="welcome-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card income">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-arrow-down-left"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Income
+                        </span>
+
+                        <strong id="totalIncome">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card expense">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-arrow-up-right"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Expenses
+                        </span>
+
+                        <strong id="totalExpenses">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card balance">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-wallet"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Balance
+                        </span>
+
+                        <strong id="totalBalance">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card savings">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-piggy-bank"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Savings
+                        </span>
+
+                        <strong id="totalSavings">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Expense Overview
+                            </h3>
+
+                            <p>
+                                Spending by category
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="expenseChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Income vs Expense
+                            </h3>
+
+                            <p>
+                                Financial comparison
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="incomeExpenseChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Recent Transactions
+                        </h3>
+
+                        <p>
+                            Your latest activity
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="text-btn"
+                        onclick="navigate('transactions')"
+                    >
+                        View All
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="recentTransactions"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRANSACTIONS
+        ================================================= -->
+
+        <section
+            id="transactionsPage"
+            class="page"
+        >
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h1>
+                        Transactions
+                    </h1>
+
+                    <p>
+                        Track your income and expenses.
+                    </p>
+
+                </div>
+
+
+                <div class="transaction-buttons">
+
+                    <button
+                        class="secondary-btn"
+                        onclick="openOCRModal()"
+                    >
+                        <i class="bi bi-camera"></i>
+                        Scan Receipt
+                    </button>
+
+
+                    <button
+                        class="primary-btn"
+                        onclick="openTransactionModal()"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                        Add Transaction
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="filter-bar">
+
+                    <input
+                        type="search"
+                        id="transactionSearch"
+                        placeholder="Search transactions..."
+                        oninput="refreshTransactions()"
+                    >
+
+
+                    <select
+                        id="transactionFilter"
+                        onchange="refreshTransactions()"
+                    >
+
+                        <option value="all">
+                            All
+                        </option>
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expense
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="categoryFilter"
+                        onchange="refreshTransactions()"
+                    >
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="transactionList"
+                    class="transaction-list"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             BUDGET
+        ================================================= -->
+
+        <section
+            id="budgetPage"
+            class="page"
+        >
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h1>
+                        Budgets
+                    </h1>
+
+                    <p>
+                        Set spending limits.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="openBudgetModal()"
+                >
+                    <i class="bi bi-plus-lg"></i>
+                    Add Budget
+                </button>
+
+            </div>
+
+
+            <div
+                id="budgetList"
+                class="budget-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             SAVINGS
+        ================================================= -->
+
+        <section
+            id="savingsPage"
+            class="page"
+        >
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h1>
+                        Savings Goals
+                    </h1>
+
+                    <p>
+                        Track your savings goals.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="openSavingsModal()"
+                >
+                    <i class="bi bi-plus-lg"></i>
+                    Add Goal
+                </button>
+
+            </div>
+
+
+            <div
+                id="savingsList"
+                class="budget-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             REPORTS
+        ================================================= -->
+
+        <section
+            id="reportsPage"
+            class="page"
+        >
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h1>
+                        Reports
+                    </h1>
+
+                    <p>
+                        Analyze your financial activity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="reports-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Category Spending
+                            </h3>
+
+                            <p>
+                                Expenses by category
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas
+                            id="reportCategoryChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Financial Summary
+                            </h3>
+
+                            <p>
+                                Current totals
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="reportSummary"
+                        class="report-summary"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SETTINGS
+        ================================================= -->
+
+        <section
+            id="settingsPage"
+            class="page"
+        >
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h1>
+                        Settings
+                    </h1>
+
+                    <p>
+                        Manage your profile.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Profile
+                        </h3>
+
+                        <p>
+                            Update your personal information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="profileForm">
+
+                    <div class="two-column">
+
+                        <div class="input-group">
+
+                            <label>
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileFirstName"
+                            >
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Last Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileLastName"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="profileEmail"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Save Profile
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     TRANSACTION MODAL
+===================================================== -->
+
+<div
+    id="transactionModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2 id="transactionModalTitle">
+                Add Transaction
+            </h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                onclick="closeModal('transactionModal')"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <form id="transactionForm">
+
+            <input
+                type="hidden"
+                id="transactionEditId"
+            >
+
+
+            <div class="input-group">
+
+                <label>
+                    Type
+                </label>
+
+                <select id="transactionType">
+
+                    <option value="expense">
+                        Expense
+                    </option>
+
+                    <option value="income">
+                        Income
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Description
+                </label>
+
+                <input
+                    type="text"
+                    id="transactionDescription"
+                    placeholder="Example: Grocery shopping"
+                >
+
+                <small
+                    id="transactionDescriptionError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Category
+                </label>
+
+                <select id="transactionCategory">
+
+                    <option>Food</option>
+                    <option>Transport</option>
+                    <option>Shopping</option>
+                    <option>Bills</option>
+                    <option>Entertainment</option>
+                    <option>Education</option>
+                    <option>Health</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="transactionAmount"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                >
+
+                <small
+                    id="transactionAmountError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="transactionDate"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn"
+            >
+                Save Transaction
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     BUDGET MODAL
+===================================================== -->
+
+<div
+    id="budgetModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2>
+                Add Budget
+            </h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                onclick="closeModal('budgetModal')"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <form id="budgetForm">
+
+            <input
+                type="hidden"
+                id="budgetEditId"
+            >
+
+
+            <div class="input-group">
+
+                <label>
+                    Category
+                </label>
+
+                <select id="budgetCategory">
+
+                    <option>Food</option>
+                    <option>Transport</option>
+                    <option>Shopping</option>
+                    <option>Bills</option>
+                    <option>Entertainment</option>
+                    <option>Education</option>
+                    <option>Health</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Budget Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="budgetAmount"
+                    min="1"
+                    step="0.01"
+                    placeholder="Enter amount"
+                >
+
+                <small
+                    id="budgetAmountError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn"
+            >
+                Save Budget
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SAVINGS MODAL
+===================================================== -->
+
+<div
+    id="savingsModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2>
+                Add Savings Goal
+            </h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                onclick="closeModal('savingsModal')"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <form id="savingsForm">
+
+            <div class="input-group">
+
+                <label>
+                    Goal Name
+                </label>
+
+                <input
+                    type="text"
+                    id="savingsName"
+                    placeholder="Example: New Laptop"
+                >
+
+                <small
+                    id="savingsNameError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Target Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="savingsTarget"
+                    min="1"
+                    step="0.01"
+                    placeholder="Target amount"
+                >
+
+                <small
+                    id="savingsTargetError"
+                    class="field-error"
+                ></small>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Current Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="savingsCurrent"
+                    min="0"
+                    step="0.01"
+                    value="0"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-btn full-btn"
+            >
+                Save Goal
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     OCR MODAL
+===================================================== -->
+
+<div
+    id="ocrModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card ocr-modal-card">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    <i class="bi bi-camera"></i>
+                    Scan Receipt
+                </h2>
+
+                <p class="ocr-subtitle">
+                    Upload your bill and Expense AI will
+                    detect the amount and expense type.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="close-btn"
+                onclick="closeOCRModal()"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <div
+            id="ocrUploadArea"
+            class="ocr-upload-area"
+        >
+
+            <i class="bi bi-receipt-cutoff"></i>
+
+            <h3>
+                Upload Receipt
+            </h3>
+
+            <p>
+                JPG, PNG or WEBP
+            </p>
+
+
+            <label class="ocr-upload-btn">
+
+                <i class="bi bi-image"></i>
+
+                Choose Receipt
+
+                <input
+                    type="file"
+                    id="receiptImage"
+                    accept="image/*"
+                    hidden
+                >
+
+            </label>
+
+        </div>
+
+
+        <div
+            id="ocrPreviewContainer"
+            class="ocr-preview-container hidden"
+        >
+
+            <img
+                id="receiptPreview"
+                class="receipt-preview"
+                alt="Receipt Preview"
+            >
+
+        </div>
+
+
+        <div
+            id="ocrProgressContainer"
+            class="ocr-progress-container hidden"
+        >
+
+            <div class="ocr-progress-text">
+
+                <span id="ocrStatus">
+                    Preparing...
+                </span>
+
+                <span id="ocrProgress">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="ocr-progress">
+
+                <div
+                    id="ocrProgressBar"
+                    class="ocr-progress-bar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="ocrTextContainer"
+            class="ocr-text-container hidden"
+        >
+
+            <label>
+                Detected Text
+            </label>
+
+            <textarea
+                id="ocrText"
+                rows="6"
+                readonly
+            ></textarea>
+
+        </div>
+
+
+        <div
+            id="ocrResult"
+            class="ocr-result hidden"
+        >
+
+            <div class="ocr-result-title">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                Receipt Analyzed
+
+            </div>
+
+
+            <p class="ocr-review-message">
+                Check the detected information before saving.
+            </p>
+
+
+            <div class="ocr-detected-grid">
+
+                <div class="input-group">
+
+                    <label>
+                        Detected Total
+                    </label>
+
+                    <input
+                        type="number"
+                        id="ocrAmount"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Expense Type
+                    </label>
+
+                    <select id="ocrCategory">
+
+                        <option>Food</option>
+                        <option>Transport</option>
+                        <option>Shopping</option>
+                        <option>Bills</option>
+                        <option>Entertainment</option>
+                        <option>Education</option>
+                        <option>Health</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Description
+                </label>
+
+                <input
+                    type="text"
+                    id="ocrDescription"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="ocrDate"
+                >
+
+            </div>
+
+
+            <div class="ocr-confidence">
+
+                <i class="bi bi-info-circle"></i>
+
+                OCR may make mistakes with blurry receipts.
+                Please verify the amount and category.
+
+            </div>
+
+
+            <button
+                type="button"
+                class="primary-btn full-btn"
+                onclick="saveOCRTransaction()"
+            >
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add as Expense
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="ocrError"
+            class="ocr-error hidden"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
